@@ -1,0 +1,46 @@
+<div class="container">
+  <ul>
+    <li *ngFor="let food of foodMenu">
+      <a routerLink="/food/{{ food.id }}">
+        <img [src]="food.imageUrl" [alt]="food.name" />
+        <div class="content">
+          <div class="name">
+            {{ food.name }}
+          </div>
+          <span class="favorite {{ food.favorite ? '' : 'not' }}"> ❤ </span>
+          <div class="product-item-footer">
+            <div class="origins">
+              <span *ngFor="let origin of food.origins">
+                {{ origin }}
+              </span>
+            </div>
+
+            <div class="cook-time">
+              <span>🕒</span>
+              {{ food.cookTime }}
+            </div>
+          </div>
+          <div class="price">
+            <span>
+              {{ food.price | currency : "£" }}
+              <!-- {{ dateToday | date : "long" }} -->
+            </span>
+          </div>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <div class="main-btn">
+    <button class="btn show-btn" (click)="showLasagna()">Show Food</button>
+    <button class="btn restore-btn" (click)="restoreStatus()">Show Menu</button>
+  </div>
+
+  <form [formGroup]="selectionForm" (ngSubmit)="onSubmit()">
+    <div>
+      <!-- <label for="id">Food ID: </label> -->
+      <input id="id" class="foodId" type="text" formControlName="searchParam" />
+    </div>
+    <button class="btn submit-btn" type="submit">Enter search value...</button>
+  </form>
+</div>
